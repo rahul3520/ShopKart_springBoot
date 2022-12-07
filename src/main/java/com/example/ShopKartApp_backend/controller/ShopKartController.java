@@ -7,6 +7,7 @@ import com.example.ShopKartApp_backend.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -20,8 +21,10 @@ public class ShopKartController {
 
     @CrossOrigin(origins = "*")
     @PostMapping(path ="/addproduct",consumes = "application/json",produces = "application/json")
-    public String AddProduct(@RequestBody Product p)
+    public HashMap<String,String> AddProduct(@RequestBody Product p)
     {
+        HashMap<String,String> map=new HashMap<>();
+
         System.out.println(p.toString());
         System.out.println(p.getId());
         System.out.println(p.getName().toString());
@@ -32,13 +35,17 @@ public class ShopKartController {
 
         pdao.save(p);
 
-        return "product added to products table in shopkartDB";
+        map.put("status","success");
+
+        return map;
     }
 
     @CrossOrigin(origins = "*")
     @PostMapping(path ="/adduser",produces = "application/json",consumes = "application/json")
-    public String AddUser(@RequestBody User u)
+    public HashMap<String,String> AddUser(@RequestBody User u)
     {
+        HashMap<String,String> map=new HashMap<>();
+
         System.out.println(u.toString());
         System.out.println(u.getId());
         System.out.println(u.getName().toString());
@@ -50,7 +57,9 @@ public class ShopKartController {
 
         udao.save(u);
 
-        return "user added to users table in shopkartdb";
+        map.put("status","success");
+
+        return map;
     }
 
     @CrossOrigin(origins = "*")
