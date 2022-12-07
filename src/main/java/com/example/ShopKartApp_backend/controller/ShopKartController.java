@@ -60,5 +60,27 @@ public class ShopKartController {
         return (List<Product>) pdao.findAll();
     }
 
+    @CrossOrigin(origins = "*")
+    @PostMapping(path ="/searchproduct",produces = "application/json",consumes ="application/json")
+    public List<Product> SearchProduct(@RequestBody Product p)
+    {
+        String prodName=String.valueOf(p.getName());
+        System.out.println(prodName);
+
+        return (List<Product>) pdao.search(p.getName());
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping(path ="/searchuser",produces = "application/json",consumes = "application/json")
+    public List<User> SearchUser(@RequestBody User u)
+    {
+        String emailid=String.valueOf(u.getEmail());
+        String password=String.valueOf(u.getPassword());
+
+        System.out.println(emailid + password);
+
+        return (List<User>) udao.verifycredentials(u.getEmail(),u.getPassword());
+    }
+
 
 }
