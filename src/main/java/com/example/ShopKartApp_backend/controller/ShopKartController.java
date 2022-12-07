@@ -5,10 +5,9 @@ import com.example.ShopKartApp_backend.dao.UserDao;
 import com.example.ShopKartApp_backend.model.Product;
 import com.example.ShopKartApp_backend.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class ShopKartController {
@@ -52,6 +51,13 @@ public class ShopKartController {
         udao.save(u);
 
         return "user added to users table in shopkartdb";
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/viewproduct")
+    public List<Product> ViewProduct()
+    {
+        return (List<Product>) pdao.findAll();
     }
 
 
