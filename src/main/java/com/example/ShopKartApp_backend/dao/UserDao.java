@@ -11,4 +11,10 @@ public interface UserDao extends CrudRepository<User,Integer> {
 
     @Query(value = "SELECT `id`, `address`, `confirm_password`, `email`, `name`, `password`, `phone_no` FROM `users` WHERE `email`=:email AND `password`=:password",nativeQuery = true)
     List<User> verifycredentials(@Param("email") String email,@Param("password") String password );
+
+    @Query(value = "SELECT `id`, `address`, `confirm_password`, `email`, `name`, `password`, `phone_no` FROM `users` WHERE `email`=:email AND `password`=:password",nativeQuery = true)
+    List<User> SearchCred(@Param("email") String email,@Param("password") String password);
+
+    @Query(value = "SELECT `id`, `address`, `confirm_password`, `email`, `name`, `password`, `phone_no` FROM `users` WHERE `id`=:id",nativeQuery = true)
+    List<User> ViewDetails(@Param("id") Integer id);
 }

@@ -91,5 +91,47 @@ public class ShopKartController {
         return (List<User>) udao.verifycredentials(u.getEmail(),u.getPassword());
     }
 
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/userloginverify",produces = "application/json",consumes = "application/json")
+    public HashMap<String,String> UserCredentials(@RequestBody User u)
+    {
+        String email=String.valueOf(u.getEmail());
+        String password=String.valueOf(u.getPassword());
+
+        System.out.println(email);
+        System.out.println((password));
+
+        List<User> result= udao.SearchCred(u.getEmail(),u.getPassword());   //user details
+
+        HashMap<String,String> map=new HashMap<>();
+
+
+
+        if(result.size()==0)
+        {
+            map.put("status","Invalid");
+            return map;
+        }
+        else
+        {
+            map.put("id",String.valueOf(result.get(0).getId()));    //resolved error in this line
+            map.put("status","success");
+            return map;
+        }
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/viewUserLogged",produces = "application/json",consumes = "application/json")
+    public List<User> ViewLoggedUser(@RequestBody User u)
+    {
+        String uid=String.valueOf(u.getId());
+
+        System.out.println(uid);
+
+        List<User> details=udao.ViewDetails(u.getId());
+
+        return details;
+    }
+
 
 }
